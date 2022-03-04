@@ -15,7 +15,7 @@
         <center>
             <img src="RoomPic/Hotel.png" alt="Hotel" style="width:700px;height:394px;">
         </center>
-        
+
         <div class="row" style="text-align:center">
             <div class="column">
                 <h3>Hotel Room1</h3>
@@ -191,25 +191,6 @@
                         "internalType": "string",
                         "name": "name",
                         "type": "string"
-                    }
-                ],
-                "name": "checkName",
-                "outputs": [
-                    {
-                        "internalType": "bool",
-                        "name": "",
-                        "type": "bool"
-                    }
-                ],
-                "stateMutability": "view",
-                "type": "function"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
                     },
                     {
                         "internalType": "string",
@@ -225,7 +206,7 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xA09a7b8030e1333bE9Ca27594E2Be99B4C1908be');   
+            return await new window.web3.eth.Contract(abi, '0xA09a7b8030e1333bE9Ca27594E2Be99B4C1908be');
         }
 
         async function load() {
