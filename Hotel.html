@@ -12,51 +12,48 @@
 
 <body>
     <div class="container">
-        <center>
-            <img src="RoomPic/Hotel.png" alt="Hotel" style="width:700px;height:394px;">
-        </center>
 
         <div class="row" style="text-align:center">
             <div class="column">
                 <h3>Hotel Room1</h3>
-                <img src="RoomPic/Room1.jfif" alt="Room 1" style="width:200px;height:200px;">
+                <img src="RoomPic/1.jpg" alt="Room 1" style="width:550px;height:412px;">
                 <center>
                     <button id="btnReservation1">Reserve 0.01 Ether</button>
                 </center>
             </div>
             <div class="column">
                 <h3>Hotel Room2</h3>
-                <img src="RoomPic/Room2.jfif" alt="Room 2" style="width:200px;height:200px;">
+                <img src="RoomPic/2.jpg" alt="Room 2" style="width:550px;height:412px;">
                 <center>
-                    <button id="btnReservation2">Reserve 0.01 Ether</button>
+                    <button id="btnReservation2">Reserve 0.02 Ether</button>
                 </center>
             </div>
             <div class="column">
                 <h3>Hotel Room3</h3>
-                <img src="RoomPic/Room3.jpg" alt="Room 3" style="width:200px;height:200px;">
+                <img src="RoomPic/3.jpg" alt="Room 3" style="width:550px;height:412px;">
                 <center>
-                    <button id="btnReservation3">Reserve 0.01 Ether</button>
+                    <button id="btnReservation3">Reserve 0.03 Ether</button>
                 </center>
             </div>
             <div class="column">
                 <h3>Hotel Room4</h3>
-                <img src="RoomPic/Room4.jpg" alt="Room 4" style="width:200px;height:200px;">
+                <img src="RoomPic/4.jpg" alt="Room 4" style="width:550px;height:412px;">
                 <center>
-                    <button id="btnReservation4">Reserve 0.01 Ether</button>
+                    <button id="btnReservation4">Reserve 0.04 Ether</button>
                 </center>
             </div>
             <div class="column">
                 <h3>Hotel Room5</h3>
-                <img src="RoomPic/Room5.jfif" alt="Room 5" style="width:200px;height:200px;">
+                <img src="RoomPic/5.jpg" alt="Room 5" style="width:550px;height:412px;">
                 <center>
-                    <button id="btnReservation5">Reserve 0.01 Ether</button>
+                    <button id="btnReservation5">Reserve 0.05 Ether</button>
                 </center>
             </div>
             <div class="column">
                 <h3>Hotel Room6</h3>
-                <img src="RoomPic/Room6.jpg" alt="Room 6" style="width:200px;height:200px;">
+                <img src="RoomPic/6.jpg" alt="Room 6" style="width:550px;height:412px;">
                 <center>
-                    <button id="btnReservation6">Reserve 0.01 Ether</button>
+                    <button id="btnReservation6">Reserve 0.06 Ether</button>
                 </center>
             </div>
         </div>
@@ -129,84 +126,84 @@
         }
 
         let abi = [
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": false,
-                        "internalType": "address",
-                        "name": "from",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "string",
-                        "name": "text",
-                        "type": "string"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "string",
-                        "name": "reason",
-                        "type": "string"
-                    }
-                ],
-                "name": "ReserveError",
-                "type": "event"
-            },
-            {
-                "anonymous": false,
-                "inputs": [
-                    {
-                        "indexed": false,
-                        "internalType": "address",
-                        "name": "from",
-                        "type": "address"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "string",
-                        "name": "text",
-                        "type": "string"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "bytes32",
-                        "name": "hash",
-                        "type": "bytes32"
-                    },
-                    {
-                        "indexed": false,
-                        "internalType": "string",
-                        "name": "time",
-                        "type": "string"
-                    }
-                ],
-                "name": "RoomAdded",
-                "type": "event"
-            },
-            {
-                "inputs": [
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "time",
-                        "type": "string"
-                    }
-                ],
-                "name": "reservation",
-                "outputs": [],
-                "stateMutability": "payable",
-                "type": "function"
-            }
-        ];
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "reason",
+				"type": "string"
+			}
+		],
+		"name": "ReserveError",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": false,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "text",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "bytes32",
+				"name": "hash",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "time",
+				"type": "string"
+			}
+		],
+		"name": "RoomAdded",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "time",
+				"type": "string"
+			}
+		],
+		"name": "reservation",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	}
+];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0x9e74E366A7f8Dd8719bCa97561B7a11D3Fe029ba');
+            return await new window.web3.eth.Contract(abi, '0x6b32d016539Fcf4c5c3527B1EB81068dd3fd76e5');
         }
 
         async function load() {
@@ -266,7 +263,7 @@
         $("#btnReservation2").click(function () {
             console.log(currentAccount);
             window.contract.methods.reservation("Room2", getTime())
-                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 2000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
             window.contract.once('RoomAdded', {}, function (error, event) {
@@ -289,7 +286,7 @@
         $("#btnReservation3").click(function () {
             console.log(currentAccount);
             window.contract.methods.reservation("Room3", getTime())
-                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 3000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
             window.contract.once('RoomAdded', {}, function (error, event) {
@@ -312,7 +309,7 @@
         $("#btnReservation4").click(function () {
             console.log(currentAccount);
             window.contract.methods.reservation("Room4", getTime())
-                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 4000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
             window.contract.once('RoomAdded', {}, function (error, event) {
@@ -335,7 +332,7 @@
         $("#btnReservation5").click(function () {
             console.log(currentAccount);
             window.contract.methods.reservation("Room5", getTime())
-                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 5000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
             window.contract.once('RoomAdded', {}, function (error, event) {
@@ -358,7 +355,7 @@
         $("#btnReservation6").click(function () {
             console.log(currentAccount);
             window.contract.methods.reservation("Room6", getTime())
-                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                .send({ from: currentAccount, value: 6000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
             window.contract.once('RoomAdded', {}, function (error, event) {
