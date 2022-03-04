@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Hotel Del Luna</title>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <!-- <script src="./node_modules/web3/dist/web3.min.js">
+    </script> -->
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <center>
+            <img src="RoomPic/Hotel.png" alt="Hotel" style="width:700px;height:394px;">
+        </center>
+        
+        <div class="row" style="text-align:center">
+            <div class="column">
+                <h3>Hotel Room1</h3>
+                <img src="RoomPic/Room1.jfif" alt="Room 1" style="width:200px;height:200px;">
+                <center>
+                    <button id="btnReservation1">Reserve 0.01 Ether</button>
+                </center>
+            </div>
+            <div class="column">
+                <h3>Hotel Room2</h3>
+                <img src="RoomPic/Room2.jfif" alt="Room 2" style="width:200px;height:200px;">
+                <center>
+                    <button id="btnReservation2">Reserve 0.01 Ether</button>
+                </center>
+            </div>
+            <div class="column">
+                <h3>Hotel Room3</h3>
+                <img src="RoomPic/Room3.jpg" alt="Room 3" style="width:200px;height:200px;">
+                <center>
+                    <button id="btnReservation3">Reserve 0.01 Ether</button>
+                </center>
+            </div>
+            <div class="column">
+                <h3>Hotel Room4</h3>
+                <img src="RoomPic/Room4.jpg" alt="Room 4" style="width:200px;height:200px;">
+                <center>
+                    <button id="btnReservation4">Reserve 0.01 Ether</button>
+                </center>
+            </div>
+            <div class="column">
+                <h3>Hotel Room5</h3>
+                <img src="RoomPic/Room5.jfif" alt="Room 5" style="width:200px;height:200px;">
+                <center>
+                    <button id="btnReservation5">Reserve 0.01 Ether</button>
+                </center>
+            </div>
+            <div class="column">
+                <h3>Hotel Room6</h3>
+                <img src="RoomPic/Room6.jpg" alt="Room 6" style="width:200px;height:200px;">
+                <center>
+                    <button id="btnReservation6">Reserve 0.01 Ether</button>
+                </center>
+            </div>
+        </div>
+
+        <label class="col-lg-2 control-label">Reservation Status</label>
+        <h2 id="result"></h2>
+        Status: <span id="status">Loading...</span>
+
+        <h2></h2>
+
+        <div class="row">
+            <table id="t01" class="type1">
+                <tr>
+                    <th>Time</th>
+                    <th>Room</th>
+                    <th>Owner (address)</th>
+                </tr>
+                <tbody id="rows">
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+
+
+            </table>
+        </div>
+
+
+
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js">
+    </script>
+    <script>
+
+        async function loadWeb3() {
+            if (window.ethereum) {
+                window.web3 = new Web3(window.ethereum);
+                window.ethereum.enable();
+            }
+        }
+
+        let currentAccount = null;
+        window.ethereum
+            .request({ method: 'eth_accounts' })
+            .then(handleAccountsChanged)
+            .catch((err) => {
+                // Some unexpected error.
+                // For backwards compatibility reasons, if no accounts are available,
+                // eth_accounts will return an empty array.
+                console.error(err);
+            });
+
+        // Note that this event is emitted on page load.
+        // If the array of accounts is non-empty, you're already
+        // connected.
+        window.ethereum.on('accountsChanged', handleAccountsChanged);
+
+        // For now, 'eth_accounts' will continue to always return an array
+        function handleAccountsChanged(accounts) {
+            if (accounts.length === 0) {
+                // MetaMask is locked or the user has not connected any accounts
+                console.log('Please connect to MetaMask.');
+            } else if (accounts[0] !== currentAccount) {
+                currentAccount = accounts[0];
+                // Do any other work!
+            }
+        }
+
+        let abi = [
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "from",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "text",
+                        "type": "string"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "reason",
+                        "type": "string"
+                    }
+                ],
+                "name": "ReserveError",
+                "type": "event"
+            },
+            {
+                "anonymous": false,
+                "inputs": [
+                    {
+                        "indexed": false,
+                        "internalType": "address",
+                        "name": "from",
+                        "type": "address"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "text",
+                        "type": "string"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "bytes32",
+                        "name": "hash",
+                        "type": "bytes32"
+                    },
+                    {
+                        "indexed": false,
+                        "internalType": "string",
+                        "name": "time",
+                        "type": "string"
+                    }
+                ],
+                "name": "RoomAdded",
+                "type": "event"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    }
+                ],
+                "name": "checkName",
+                "outputs": [
+                    {
+                        "internalType": "bool",
+                        "name": "",
+                        "type": "bool"
+                    }
+                ],
+                "stateMutability": "view",
+                "type": "function"
+            },
+            {
+                "inputs": [
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "time",
+                        "type": "string"
+                    }
+                ],
+                "name": "reservation",
+                "outputs": [],
+                "stateMutability": "payable",
+                "type": "function"
+            }
+        ];
+
+        async function loadContract() {
+            return await new window.web3.eth.Contract(abi, '0xA09a7b8030e1333bE9Ca27594E2Be99B4C1908be');   
+        }
+
+        async function load() {
+            await loadWeb3();
+            window.contract = await loadContract();
+            updateStatus('Ready!');
+        }
+
+        function updateStatus(status) {
+            const statusEl = document.getElementById('status');
+            statusEl.innerHTML = status;
+            console.log(status);
+        }
+
+        var n = new Date();
+        full_time = n.getHours().toLocaleString() + ":" + n.getMinutes().toLocaleString();
+
+        async function addData(time, room, address) {
+            var newRow = document.createElement("tr");
+            var newCell1 = document.createElement("td");
+            var newCell2 = document.createElement("td");
+            var newCell3 = document.createElement("td");
+            newCell1.innerHTML = time;
+            newCell2.innerHTML = room;
+            newCell3.innerHTML = address;
+            newRow.append(newCell1);
+            newRow.append(newCell2);
+            newRow.append(newCell3);
+            document.getElementById("rows").appendChild(newRow);
+        }
+
+        $("#btnReservation1").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.reservation("Room1", full_time)
+                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                    $("#result").html("Waiting for Reservation");
+                });
+            window.contract.once('RoomAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Room Name: " + event.returnValues.text + "<br/> Reserved by:"
+                        + event.returnValues.from);
+                    addData(event.returnValues.time, event.returnValues.room, event.returnValues.from);
+                }
+            });
+            window.contract.once('ReserveError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason: "
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        $("#btnReservation2").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.reservation("Room2", full_time)
+                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                    $("#result").html("Waiting for Reservation");
+                });
+            window.contract.once('RoomAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Room Name: " + event.returnValues.text + "<br/> Reserved by:"
+                        + event.returnValues.from);
+                    addData(event.returnValues.time, event.returnValues.text, event.returnValues.from);
+                }
+            });
+            window.contract.once('ReserveError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason: "
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        $("#btnReservation3").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.reservation("Room3", full_time)
+                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                    $("#result").html("Waiting for Reservation");
+                });
+            window.contract.once('RoomAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Room Name: " + event.returnValues.text + "<br/> Reserved by:"
+                        + event.returnValues.from);
+                    addData(event.returnValues.time, event.returnValues.text, event.returnValues.from);
+                }
+            });
+            window.contract.once('ReserveError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason: "
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        $("#btnReservation4").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.reservation("Room4", full_time)
+                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                    $("#result").html("Waiting for Reservation");
+                });
+            window.contract.once('RoomAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Room Name: " + event.returnValues.text + "<br/> Reserved by:"
+                        + event.returnValues.from);
+                    addData(event.returnValues.time, event.returnValues.text, event.returnValues.from);
+                }
+            });
+            window.contract.once('ReserveError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason: "
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        $("#btnReservation5").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.reservation("Room5", full_time)
+                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                    $("#result").html("Waiting for Reservation");
+                });
+            window.contract.once('RoomAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Room Name: " + event.returnValues.text + "<br/> Reserved by:"
+                        + event.returnValues.from);
+                    addData(event.returnValues.time, event.returnValues.text, event.returnValues.from);
+                }
+            });
+            window.contract.once('ReserveError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason: "
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        $("#btnReservation6").click(function () {
+            console.log(currentAccount);
+            window.contract.methods.reservation("Room6", full_time)
+                .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
+                    $("#result").html("Waiting for Reservation");
+                });
+            window.contract.once('RoomAdded', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Room Name: " + event.returnValues.text + "<br/> Reserved by:"
+                        + event.returnValues.from);
+                    addData(event.returnValues.time, event.returnValues.text, event.returnValues.from);
+                }
+            });
+            window.contract.once('ReserveError', {}, function (error, event) {
+                if (!error) {
+                    console.log(event);
+                    $("#result").html("Error: " + event.returnValues.text + "<br/>Reason: "
+                        + event.returnValues.reason);
+                }
+            });
+        });
+
+        load();
+    </script>
+</body>
+
+</html>
