@@ -206,7 +206,7 @@
         ];
 
         async function loadContract() {
-            return await new window.web3.eth.Contract(abi, '0xA09a7b8030e1333bE9Ca27594E2Be99B4C1908be');
+            return await new window.web3.eth.Contract(abi, '0x9e74E366A7f8Dd8719bCa97561B7a11D3Fe029ba');
         }
 
         async function load() {
@@ -221,8 +221,10 @@
             console.log(status);
         }
 
-        var n = new Date();
-        full_time = n.getHours().toLocaleString() + ":" + n.getMinutes().toLocaleString();
+        function getTime() {
+            var n = new Date();
+            return n.getHours().toLocaleString() + ":" + n.getMinutes().toLocaleString();
+        }
 
         async function addData(time, room, address) {
             var newRow = document.createElement("tr");
@@ -240,7 +242,7 @@
 
         $("#btnReservation1").click(function () {
             console.log(currentAccount);
-            window.contract.methods.reservation("Room1", full_time)
+            window.contract.methods.reservation("Room1", getTime())
                 .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
@@ -249,7 +251,7 @@
                     console.log(event);
                     $("#result").html("Room Name: " + event.returnValues.text + "<br/> Reserved by:"
                         + event.returnValues.from);
-                    addData(event.returnValues.time, event.returnValues.room, event.returnValues.from);
+                    addData(event.returnValues.time, event.returnValues.text, event.returnValues.from);
                 }
             });
             window.contract.once('ReserveError', {}, function (error, event) {
@@ -263,7 +265,7 @@
 
         $("#btnReservation2").click(function () {
             console.log(currentAccount);
-            window.contract.methods.reservation("Room2", full_time)
+            window.contract.methods.reservation("Room2", getTime())
                 .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
@@ -286,7 +288,7 @@
 
         $("#btnReservation3").click(function () {
             console.log(currentAccount);
-            window.contract.methods.reservation("Room3", full_time)
+            window.contract.methods.reservation("Room3", getTime())
                 .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
@@ -309,7 +311,7 @@
 
         $("#btnReservation4").click(function () {
             console.log(currentAccount);
-            window.contract.methods.reservation("Room4", full_time)
+            window.contract.methods.reservation("Room4", getTime())
                 .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
@@ -332,7 +334,7 @@
 
         $("#btnReservation5").click(function () {
             console.log(currentAccount);
-            window.contract.methods.reservation("Room5", full_time)
+            window.contract.methods.reservation("Room5", getTime())
                 .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
@@ -355,7 +357,7 @@
 
         $("#btnReservation6").click(function () {
             console.log(currentAccount);
-            window.contract.methods.reservation("Room6", full_time)
+            window.contract.methods.reservation("Room6", getTime())
                 .send({ from: currentAccount, value: 1000000000000000 }, function (error, result) {
                     $("#result").html("Waiting for Reservation");
                 });
